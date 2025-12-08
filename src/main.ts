@@ -38,7 +38,6 @@ const TurnoPersonalizado = document.getElementById("llamar");
 }
 //Funciones
 
-
 function LeerTurno () :number{
     const textoTurno = document.getElementById("turno-actual");
         if (
