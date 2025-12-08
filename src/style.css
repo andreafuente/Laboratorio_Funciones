@@ -131,9 +131,46 @@ button:focus-visible {
   text-align: center;
   color: #213547;
   background-color: #ffffff;
-   border-radius: 8px;
+  border-radius: 8px;
   border: 1px solid #213547;
   padding: 0.6em 1.2em;
   cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.turno-elegido {
+  font-size: 1.2rem;
+  margin: 0;
+  color: #213547;
+  background-color: #ffffff;
+  padding: 0.6em;
+}
+
+.control-llamar {
+  font-size: 1rem;
+  margin: 0;
+  text-align: center;
+  color: #213547;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #213547;
+  padding: 0.6em;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+
+#turno-deseado {
+  font-size: 1rem;
+  margin: 0;
+  color: #213547;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 1px solid #213547;
+  padding: 0.6em;
   transition: border-color 0.25s;
 }

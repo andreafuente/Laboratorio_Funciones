@@ -19,6 +19,14 @@
     <div class="controlPanel">
       <button class="control" id="reset">Volver a empezar</button>
     </div>
+    <div class="controlPanel">
+      <label for="turno-deseado" class="turno-elegido">
+        Turno personalizado: 
+        <input type="text" name="turno-deseado" id="turno-deseado" aria-describedby="Instruciones">
+      </label>
+      <button class="control-llamar" type="button" value="Llamar" id="llamar">Llamar</button>
+      <p class="turno-elegido" id="Instruciones">Introduce un número entre 0 y 20.</p>
+    </div>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
