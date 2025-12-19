@@ -1,118 +1,92 @@
-//Variables y eventos
-const Siguiente = document.getElementById("next");
-    if (Siguiente !== null &&
-        Siguiente !== undefined ) {
-    Siguiente.addEventListener("click", () => {
-    const TurnoActual = LeerTurno();
-    const NuevoTurno: number = sumarTurno(TurnoActual);
-    pintarTurno (NuevoTurno);
-    });
-}
 
-const Anterior = document.getElementById("prev");
-    if (Anterior !== null &&
-        Anterior !== undefined ) {
-    Anterior.addEventListener("click", () => {
-    const TurnoActual = LeerTurno();
-    const NuevoTurno: number = restarTurno(TurnoActual);
-    pintarTurno (NuevoTurno);
-    });
- }
+let turno: number = 0;
 
-const Reset = document.getElementById("reset");
-    if (Reset !== null &&
-        Reset !== undefined ) {
-    Reset.addEventListener("click", () => {
-    const NuevoTurno: number = resetearTurno();
-    pintarTurno (NuevoTurno);
-    });
-}
+const textoTurno = document.getElementById("turno-actual");
+const anterior = document.getElementById("prev");
+const siguiente = document.getElementById("next");
+const reset = document.getElementById("reset");
+const turnoDeseado = document.getElementById("turno-deseado");
+const llamar = document.getElementById("llamar");
 
-const TurnoPersonalizado = document.getElementById("llamar");
-    if (TurnoPersonalizado !== null &&
-        TurnoPersonalizado !== undefined ) {
-    TurnoPersonalizado.addEventListener("click", () => { 
-    const NuevoTurno: number = cambiarTurno();
-    pintarTurno (NuevoTurno);
-    });
-}
-//Funciones
+const desactivarBoton = (
+  boton: HTMLButtonElement,
+  desactivar: boolean
+): void => {
+  if (
+    boton !== null &&
+    boton !== undefined &&
+    boton instanceof HTMLButtonElement
+  ) {
+    boton.disabled = desactivar;
+  }
+};
 
-function LeerTurno () :number{
-    const textoTurno = document.getElementById("turno-actual");
-        if (
-        textoTurno !== null &&
-        textoTurno !== undefined) {
-    return Number(textoTurno.textContent);
-    }
-        else {
-    return 0;
-        }
-}
+const escribirTurno = (turno: number): void => {
+  if (textoTurno !== null && textoTurno !== undefined) {
+    textoTurno.textContent = String(turno).padStart(2, "0");
+  }
+};
 
-function restarTurno (turno: number) {
-    if (turno > 0) {
-        return turno - 1;
-    }
-    return 0;
-}
-
-function sumarTurno (turno: number) :number {
+if (
+  siguiente !== null &&
+  siguiente !== undefined &&
+  siguiente instanceof HTMLButtonElement &&
+  anterior !== null &&
+  anterior !== undefined &&
+  anterior instanceof HTMLButtonElement &&
+  reset !== null &&
+  reset !== undefined &&
+  reset instanceof HTMLButtonElement
+) {
+  const handleSiguiente = (): void => {
     if (turno < 20) {
-        return turno + 1;
+      turno += 1;
+      escribirTurno(turno);
     }
-    return 20;
+    if (turno === 20) {
+      desactivarBoton(siguiente, true);
+    }
+  };
+
+  const handleAnterior = (): void => {
+    if (turno > 0) {
+      turno -= 1;
+      escribirTurno(turno);
+    }
+    if (turno === 0) {
+      desactivarBoton(anterior, true);
+    }
+  };
+
+  const handleReset = (): void => {
+    turno = 0;
+    escribirTurno(turno);
+  };
+
+  siguiente.addEventListener("click", handleSiguiente);
+  anterior.addEventListener("click", handleAnterior);
+  reset.addEventListener("click", handleReset);
 }
 
-function resetearTurno () {
-    return 0;
+const cambiarTurno = (): void => {
+  if (
+    turnoDeseado !== null &&
+    turnoDeseado !== undefined &&
+    turnoDeseado instanceof HTMLInputElement
+  ) {
+    let nuevoTurno = Number(turnoDeseado.value);
+    if (nuevoTurno < 0 || nuevoTurno > 20) {
+      nuevoTurno = 0;
+    }
+    turno = nuevoTurno;
+    escribirTurno(turno);
+  }
 }
 
-function pintarTurno (MostrarTurno:number) :void {
-    const NuevoTurno = document.getElementById("turno-actual");
-    if (
-        NuevoTurno !== null &&
-        NuevoTurno !== undefined){
-
-    NuevoTurno.textContent = String (MostrarTurno).padStart(2,"0");
-    manipularBotones();
-    }
-}
-
- // Funcion extra, me apetecia jugar con el DOM
-
- function manipularBotones () {
-    const TurnoActual = LeerTurno();
-
-    if (TurnoActual===0) {
-        Anterior?.setAttribute("disabled", "");
-    }
-    else {
-        Anterior?.removeAttribute("disabled");
-    }
-
-    if (TurnoActual===20) {
-        Siguiente?.setAttribute("disabled", "");
-    }
-    else {
-        Siguiente?.removeAttribute("disabled");
- }
-}
-
-//Funcion para la parte Challenge
-
-function cambiarTurno():number {
-    const TurnoDeseado = document.getElementById("turno-deseado");
-    let MiTurno =LeerTurno();
-        if (TurnoDeseado instanceof HTMLInputElement) {
-        const ValorTurno =  TurnoDeseado.value;
-        MiTurno = Number(ValorTurno);
-        if (
-        MiTurno < 0 ||
-        MiTurno >20) {
-            MiTurno = 0;
-        }
-        TurnoDeseado.value = String (MiTurno).padStart(2,"0");
-        }
-    return MiTurno;
+if (
+  llamar !== null &&
+  llamar !== undefined &&
+  llamar instanceof HTMLButtonElement
+) {
+  llamar.addEventListener("click", cambiarTurno);
 }
