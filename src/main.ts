@@ -1,4 +1,3 @@
-
 let turno: number = 0;
 
 const textoTurno = document.getElementById("turno-actual");
